@@ -2,9 +2,9 @@ const question = [
   {
     question: "Which is larger animal in the world.?",
     answers: [
-      { text: "shark", correct: false },
-      { text: "blue whale", correct: true },
-      { text: "elephant", correct: false },
+      { text: "Shark", correct: false },
+      { text: "Blue whale", correct: true },
+      { text: "Elephant", correct: false },
       { text: "Giraffe", correct: false },
     ],
   },
