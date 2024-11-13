@@ -11,11 +11,11 @@ const question = [
   {
     question: "Which is largest desert in the world.?",
     answers: [
-      { text: "kalahari", correct: false},
+      { text: "kalahari", correct: false },
       { text: "Gobi", correct: false },
       { text: "sahara", correct: false },
       { text: "Antarctica", correct: true },
-    ]
+    ],
   },
   {
     question: "Which is smallest continent in the world.?",
@@ -29,31 +29,52 @@ const question = [
 ];
 
 const questionElement = document.getElementById("question");
-const answerButton = document.getElementById("answer-buttons");
+const answerButtons = document.getElementById("answer-buttons");
 const nextButton = document.getElementById("next-btn");
-
 
 let currentQuestionIndex = 0;
 let score = 0;
 
-function startQuiz(){
+function startQuiz() {
   currentQuestionIndex = 0;
   score = 0;
   nextButton.innerHTML = "next";
   showQuestion();
 }
 
-function showQuestion(){
+function showQuestion() {
+  resetState();
   let currentQuestion = question[currentQuestionIndex];
-  let questionNo = currentQuestionIndex +1;
+  let questionNo = currentQuestionIndex + 1;
   questionElement.innerHTML = questionNo + ". " + currentQuestion.question;
 
-  currentQuestion.answers.forEach(answer => {
+  currentQuestion.answers.forEach((answer) => {
     const button = document.createElement("button");
     button.innerHTML = answer.text;
     button.classList.add("btn");
-    answerButton.appendChild(button);
+    answerButtons.appendChild(button);
+    if (answer.correct) {
+      button.dataset.correct = answer.correct;
+    }
+    button.addEventListener("click", selectAnswer);
   });
+}
+
+function resetState() {
+  nextButton.style.display = "none";
+  while (answerButtons.firstChild) {
+    answerButtons.removeChild(answerButtons.firstChild);
+  }
+}
+
+function selectAnswer(e) {
+  const selectBtn = e.target;
+  const isCorrect = selectBtn.dataset.correct === "true";
+  if (isCorrect) {
+    selectBtn.classList.add("correct");
+  } else {
+    selectBtn.classList.add("incorrect");
+  }
 }
 
 startQuiz();
